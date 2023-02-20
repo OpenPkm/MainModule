@@ -1,6 +1,5 @@
 CREATE TABLE public.gen (
-	id uuid NOT NULL,
+	id uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
 	"no" int NOT NULL,
-	"name" varchar NOT NULL,
-	CONSTRAINT gen_pk PRIMARY KEY (id)
+	"name" varchar NOT NULL
 );
