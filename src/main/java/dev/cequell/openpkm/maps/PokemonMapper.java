@@ -2,17 +2,26 @@ package dev.cequell.openpkm.maps;
 
 import dev.cequell.openpkm.dto.ValueText;
 import dev.cequell.openpkm.entities.PokemonEntity;
+import dev.cequell.openpkm.enums.PokemonMapTypeEnum;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "cdi")
-public interface PokemonMapper {
-    @Mapping(target = "value", source = "entity.id")
-    @Mapping(target = "label", source = "entity.name")
-    ValueText<UUID> toValueText(PokemonEntity entity);
+public abstract class PokemonMapper {
 
-    List<ValueText<UUID>> toValueText(List<PokemonEntity> entity);
+    public ValueText<UUID> toValueText(
+            PokemonEntity entity,
+            PokemonMapTypeEnum typeEnum
+    ) {
+        return typeEnum.execute(entity);
+    }
+
+    public List<ValueText<UUID>> toValueText(
+            List<PokemonEntity> entityList,
+            PokemonMapTypeEnum typeEnum) {
+        return entityList.stream().map(el -> toValueText(el, typeEnum)).collect(Collectors.toList());
+    }
 }

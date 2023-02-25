@@ -4,10 +4,7 @@ import dev.cequell.openpkm.dto.ValueText;
 import dev.cequell.openpkm.services.pokemon.PokemonAsValueTextService;
 import lombok.RequiredArgsConstructor;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
@@ -23,7 +20,10 @@ public class PokemonController {
 
     @GET
     @Path("/AsValueText")
-    public List<ValueText<UUID>> getList(@Context UriInfo uriInfo) {
-        return asValueTextService.execute(uriInfo);
+    public List<ValueText<UUID>> asValueText(
+            @QueryParam("mode") String mode,
+            @Context UriInfo uriInfo
+    ) {
+        return asValueTextService.execute(mode, uriInfo);
     }
 }

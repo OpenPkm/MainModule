@@ -22,6 +22,9 @@ public class TypeEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "slug")
+    private String slug;
+
     @Column(name = "background_color")
     private String backgroundColor;
 

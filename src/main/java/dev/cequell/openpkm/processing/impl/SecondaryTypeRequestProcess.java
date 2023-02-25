@@ -11,6 +11,6 @@ public class SecondaryTypeRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var secondary = params.getFirst("secondary");
         if(secondary == null) return content;
-        return content.filter(el -> el.getSecondaryType() != null && secondary.equals(el.getSecondaryType().getId().toString()));
+        return content.filter(el -> el.getSecondaryType() != null && secondary.equals(el.getSecondaryType().getSlug()));
     }
 }

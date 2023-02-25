@@ -1,35 +1,47 @@
 package dev.cequell.openpkm.services.pokemon;
 
 import dev.cequell.openpkm.dto.ValueText;
+import dev.cequell.openpkm.enums.PokemonMapTypeEnum;
 import dev.cequell.openpkm.maps.PokemonMapper;
+import dev.cequell.openpkm.processing.RequestBaseProcess;
 import dev.cequell.openpkm.processing.impl.*;
 import dev.cequell.openpkm.repositories.PokemonRepository;
-import lombok.RequiredArgsConstructor;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @ApplicationScoped
 public class PokemonAsValueTextService {
     private final PokemonRepository pokemonRepository;
     private final PokemonMapper pokemonMapper;
+    private final RequestBaseProcess requestProcess;
 
-    public List<ValueText<UUID>> execute(UriInfo uriInfo) {
-        var requestProcess = new NameRequestProcess();
-        var generationProcess = new GenerationRequestProcess();
-        var classificationProcess = new ClassificationRequestProcess();
-        var primaryTypeProcess = new PrimaryTypeRequestProcess();
-        var secondaryTypeProcess = new SecondaryTypeRequestProcess();
+    public PokemonAsValueTextService(
+            final PokemonRepository pokemonRepository,
+            final PokemonMapper pokemonMapper
+    ) {
+        this.pokemonRepository = pokemonRepository;
+        this.pokemonMapper = pokemonMapper;
 
-        requestProcess.add(generationProcess);
-        requestProcess.add(classificationProcess);
-        requestProcess.add(primaryTypeProcess);
-        requestProcess.add(secondaryTypeProcess);
+        requestProcess = new NameRequestProcess();
+        requestProcess.add(new GenerationRequestProcess());
+        requestProcess.add(new ClassificationRequestProcess());
+        requestProcess.add(new PrimaryTypeRequestProcess());
+        requestProcess.add(new SecondaryTypeRequestProcess());
+        requestProcess.add(new NationalNoRequestProcess());
+        requestProcess.add(new RegionalNoRequestProcess());
+        requestProcess.add(new SomeTypeRequestProcess());
+    }
+
+    public List<ValueText<UUID>> execute(String mode, UriInfo uriInfo) {
+        var mapTypeEnum = PokemonMapTypeEnum.of(mode);
+        if(mapTypeEnum == null) {
+            throw new RuntimeException("Select a valid mode: ");
+        }
 
         var query = requestProcess.process(pokemonRepository.streamAll(), uriInfo);
-        return pokemonMapper.toValueText(query.toList());
+        return pokemonMapper.toValueText(query.toList(), mapTypeEnum);
     }
 }
