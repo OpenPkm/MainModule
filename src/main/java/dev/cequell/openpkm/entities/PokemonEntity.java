@@ -3,10 +3,7 @@ package dev.cequell.openpkm.entities;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +20,9 @@ public class PokemonEntity extends PanacheEntityBase {
     @Column(name = "national_dex_no")
     private int nationalDexNo;
 
+    @Column(name = "regional_dex_no")
+    private int regionalDexNo;
+
     @Column(name = "name")
     private String name;
 
@@ -36,8 +36,32 @@ public class PokemonEntity extends PanacheEntityBase {
     private float height;
 
     @Column(name = "female_ratio")
-    private float femaleRatio;
+    private Float femaleRatio;
 
     @Column(name = "variation")
     private String variation;
+
+    @ManyToOne
+    @JoinColumn(
+        name = "gen_id",
+        insertable = false,
+        updatable = false
+    )
+    private GenEntity gen;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "primary_type_id",
+            insertable = false,
+            updatable = false
+    )
+    private TypeEntity primaryType;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "secondary_type_id",
+            insertable = false,
+            updatable = false
+    )
+    private TypeEntity secondaryType;
 }

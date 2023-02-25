@@ -1,6 +1,5 @@
 package dev.cequell.openpkm.entities;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -14,15 +13,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "gen")
+@Table(name = "type")
 @Entity
-public class GenEntity extends PanacheEntityBase {
+public class TypeEntity {
     @Id
     private UUID id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "no")
-    private int no;
+    @Column(name = "background_color")
+    private String backgroundColor;
+
+    @Column(name = "foreground_color")
+    private String foregroundColor;
 }
