@@ -27,5 +27,5 @@ public abstract class RequestBaseProcess {
         }
     }
 
-    protected abstract Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> uriInfo);
+    protected abstract Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params);
 }

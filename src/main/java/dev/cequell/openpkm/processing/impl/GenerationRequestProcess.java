@@ -11,6 +11,6 @@ public class GenerationRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var generation = params.getFirst("gen");
         if(generation == null) return content;
-        return content.filter(el -> el.getGen().getNo() == Integer.parseInt(generation));
+        return content.filter(el -> el.gen.no == Integer.parseInt(generation));
     }
 }

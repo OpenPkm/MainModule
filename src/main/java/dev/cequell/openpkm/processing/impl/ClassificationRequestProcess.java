@@ -11,6 +11,6 @@ public class ClassificationRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var classification = params.getFirst("classification");
         if(classification == null) return content;
-        return content.filter(el -> el.getClassification().toLowerCase().contains(classification.toLowerCase()));
+        return content.filter(el -> el.classification.toLowerCase().contains(classification.toLowerCase()));
     }
 }

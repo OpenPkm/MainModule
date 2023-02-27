@@ -12,6 +12,7 @@ import java.util.UUID;
 public class PokemonResponseDto {
     private UUID id;
     private int nationalDexNo;
+    private int regionalDexNo;
     private String name;
     private String classification;
     private float weight;

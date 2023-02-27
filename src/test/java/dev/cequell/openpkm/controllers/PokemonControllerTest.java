@@ -4,6 +4,7 @@ import dev.cequell.openpkm.configs.DatabaseTestConfig;
 import dev.cequell.openpkm.enums.PokemonMapTypeEnum;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -21,7 +22,7 @@ class PokemonControllerTest {
     @EmptySource
     @NullSource
     @ValueSource(strings = "INVALID_MODE")
-    void asValueText_FailWhenNoModeIsSelected(String mode) {
+    void asValueText_shouldFail(String mode) {
         given()
                 .when()
                 .queryParam("mode", mode)
@@ -74,6 +75,7 @@ class PokemonControllerTest {
     void asValueText_ByType(
             final PokemonMapTypeEnum mode
     ) {
+        // When
         final var galarianSlowkingId = "84710839-7ea1-41a6-ba40-e32c8aca9940";
 
         final var awaitedGalarianSlowkingLabel =
@@ -145,5 +147,46 @@ class PokemonControllerTest {
                         "[1].label", is(awaitedLowKeyToxtricityLabel),
                         "[2].value", is(ampedToxtricityId),
                         "[2].label", is(awaitedAmpedToxtricityLabel));
+    }
+
+    @Test
+    void byId() {
+        // Given
+        final var toxtricityLowKeyId = "59deb991-2c55-40dc-b697-da65e070c3a1";
+
+        // When/Then
+        given()
+                .when()
+                .get("/pokemon/"+toxtricityLowKeyId)
+                .then()
+                .statusCode(200)
+                .body(
+                        "id", is(toxtricityLowKeyId),
+                        "name", is("Toxtricity"),
+                        "gen.id", is("7352b9ab-cf24-4272-8b9d-b28824d6e4d6"),
+                        "gen.no", is(9),
+                        "gen.name", is("Gen IX"),
+                        "nationalDexNo", is(849),
+                        "regionalDexNo", is(199),
+                        "classification", is("Punk"),
+                        "weight", is(1.6f),
+                        "height", is(40.0f),
+                        "femaleRatio", is(0.5f),
+                        "variation", is("Low Key"),
+                        "primaryType.id", is("e35d733d-7e34-44ab-881d-2c68c86124f8"),
+                        "primaryType.name", is("Electric"),
+                        "primaryType.slug", is("ELT"),
+                        "primaryType.backgroundColor", is("#ffc631"),
+                        "primaryType.foregroundColor", is("#ffffff"),
+                        "secondaryType.id", is("34df4853-382f-4c81-9dc0-a43e03d26eb6"),
+                        "secondaryType.name", is("Poison"),
+                        "secondaryType.slug", is("PSN"),
+                        "secondaryType.backgroundColor", is("#b55aa5"),
+                        "secondaryType.foregroundColor", is("#ffffff")
+                );
+    }
+
+    @Test
+    void paged() {
     }
 }

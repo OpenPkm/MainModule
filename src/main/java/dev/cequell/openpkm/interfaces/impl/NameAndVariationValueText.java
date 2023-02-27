@@ -9,12 +9,10 @@ import java.util.UUID;
 public class NameAndVariationValueText implements IPokemonMapValueText {
     @Override
     public ValueText<UUID> execute(PokemonEntity entity) {
-        return (entity.getVariation() == null) ?
-            new ValueText<>(
-                entity.getId(),
-                entity.getName()) :
-            new ValueText<>(
-                entity.getId(),
-                "%s (%s form)".formatted(entity.getName(), entity.getVariation()));
+        final var label = (entity.variation == null) ?
+            entity.name :
+            "%s (%s form)".formatted(entity.name, entity.variation);
+
+        return new ValueText<>(entity.id, label);
     }
 }

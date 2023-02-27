@@ -1,13 +1,13 @@
 package dev.cequell.openpkm.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.UUID;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -15,31 +15,31 @@ import java.util.UUID;
 @Entity
 public class PokemonEntity extends PanacheEntityBase {
     @Id
-    private UUID id;
+    public UUID id;
 
     @Column(name = "national_dex_no")
-    private int nationalDexNo;
+    public int nationalDexNo;
 
     @Column(name = "regional_dex_no")
-    private int regionalDexNo;
+    public int regionalDexNo;
 
     @Column(name = "name")
-    private String name;
+    public String name;
 
     @Column(name = "classification")
-    private String classification;
+    public String classification;
 
     @Column(name = "weight")
-    private float weight;
+    public float weight;
 
     @Column(name = "height")
-    private float height;
+    public float height;
 
     @Column(name = "female_ratio")
-    private Float femaleRatio;
+    public Float femaleRatio;
 
     @Column(name = "variation")
-    private String variation;
+    public String variation;
 
     @ManyToOne
     @JoinColumn(
@@ -47,7 +47,7 @@ public class PokemonEntity extends PanacheEntityBase {
         insertable = false,
         updatable = false
     )
-    private GenEntity gen;
+    public GenEntity gen;
 
     @ManyToOne
     @JoinColumn(
@@ -55,7 +55,7 @@ public class PokemonEntity extends PanacheEntityBase {
             insertable = false,
             updatable = false
     )
-    private TypeEntity primaryType;
+    public TypeEntity primaryType;
 
     @ManyToOne
     @JoinColumn(
@@ -63,5 +63,5 @@ public class PokemonEntity extends PanacheEntityBase {
             insertable = false,
             updatable = false
     )
-    private TypeEntity secondaryType;
+    public TypeEntity secondaryType;
 }

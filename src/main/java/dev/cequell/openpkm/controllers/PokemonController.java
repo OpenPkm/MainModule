@@ -1,7 +1,11 @@
 package dev.cequell.openpkm.controllers;
 
+import dev.cequell.openpkm.dto.PagedDto;
+import dev.cequell.openpkm.dto.PokemonResponseDto;
 import dev.cequell.openpkm.dto.ValueText;
-import dev.cequell.openpkm.services.pokemon.PokemonAsValueTextService;
+import dev.cequell.openpkm.services.pokemon.AsValueTextService;
+import dev.cequell.openpkm.services.pokemon.ByIdService;
+import dev.cequell.openpkm.services.pokemon.PagedService;
 import lombok.RequiredArgsConstructor;
 
 import javax.ws.rs.*;
@@ -16,7 +20,15 @@ import java.util.UUID;
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/pokemon")
 public class PokemonController {
-    private final PokemonAsValueTextService asValueTextService;
+    private final AsValueTextService asValueTextService;
+    private final ByIdService byIdService;
+    private final PagedService pagedService;
+
+    @GET
+    @Path("{id}")
+    public PokemonResponseDto byId(final UUID id) {
+        return byIdService.execute(id);
+    }
 
     @GET
     @Path("/AsValueText")
@@ -25,5 +37,15 @@ public class PokemonController {
             @Context UriInfo uriInfo
     ) {
         return asValueTextService.execute(mode, uriInfo);
+    }
+
+    @GET
+    @Path("/Paged")
+    public PagedDto<PokemonResponseDto> paged(
+            @QueryParam("page") int page,
+            @QueryParam("size") int size,
+            @Context UriInfo uriInfo
+    ) {
+        return pagedService.execute(page, size, uriInfo);
     }
 }

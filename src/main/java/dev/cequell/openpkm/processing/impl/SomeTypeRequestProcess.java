@@ -12,8 +12,8 @@ public class SomeTypeRequestProcess extends RequestBaseProcess {
         var type = params.getFirst("type");
         if(type == null) return content;
         return content.filter(
-                el -> type.equals(el.getPrimaryType().getSlug()) ||
-                (el.getSecondaryType() != null && type.equals(el.getSecondaryType().getSlug()))
+                el -> type.equals(el.primaryType.slug) ||
+                (el.secondaryType != null && type.equals(el.secondaryType.slug))
         );
     }
 }

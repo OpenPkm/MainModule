@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,11 +16,11 @@ import java.util.UUID;
 @Entity
 public class GenEntity extends PanacheEntityBase {
     @Id
-    private UUID id;
+    public UUID id;
 
     @Column(name = "name")
-    private String name;
+    public String name;
 
     @Column(name = "no")
-    private int no;
+    public int no;
 }

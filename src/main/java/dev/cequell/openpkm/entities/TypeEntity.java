@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,17 +15,17 @@ import java.util.UUID;
 @Entity
 public class TypeEntity {
     @Id
-    private UUID id;
+    public UUID id;
 
     @Column(name = "name")
-    private String name;
+    public String name;
 
     @Column(name = "slug")
-    private String slug;
+    public String slug;
 
     @Column(name = "background_color")
-    private String backgroundColor;
+    public String backgroundColor;
 
     @Column(name = "foreground_color")
-    private String foregroundColor;
+    public String foregroundColor;
 }

@@ -1,7 +1,7 @@
 package dev.cequell.openpkm.services.pokemon;
 
-import dev.cequell.openpkm.dto.ValueText;
-import dev.cequell.openpkm.enums.PokemonMapTypeEnum;
+import dev.cequell.openpkm.dto.PagedDto;
+import dev.cequell.openpkm.dto.PokemonResponseDto;
 import dev.cequell.openpkm.maps.PokemonMapper;
 import dev.cequell.openpkm.processing.RequestBaseProcess;
 import dev.cequell.openpkm.processing.impl.*;
@@ -9,16 +9,14 @@ import dev.cequell.openpkm.repositories.PokemonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.UriInfo;
-import java.util.List;
-import java.util.UUID;
 
 @ApplicationScoped
-public class PokemonAsValueTextService {
+public class PagedService {
     private final PokemonRepository pokemonRepository;
     private final PokemonMapper pokemonMapper;
     private final RequestBaseProcess requestProcess;
 
-    public PokemonAsValueTextService(
+    public PagedService(
             final PokemonRepository pokemonRepository,
             final PokemonMapper pokemonMapper
     ) {
@@ -26,6 +24,7 @@ public class PokemonAsValueTextService {
         this.pokemonMapper = pokemonMapper;
 
         requestProcess = new NameRequestProcess();
+        requestProcess.add(new SortProcessing());
         requestProcess.add(new GenerationRequestProcess());
         requestProcess.add(new ClassificationRequestProcess());
         requestProcess.add(new PrimaryTypeRequestProcess());
@@ -35,13 +34,21 @@ public class PokemonAsValueTextService {
         requestProcess.add(new SomeTypeRequestProcess());
     }
 
-    public List<ValueText<UUID>> execute(String mode, UriInfo uriInfo) {
-        var mapTypeEnum = PokemonMapTypeEnum.of(mode);
-        if(mapTypeEnum == null) {
-            throw new RuntimeException("Select a valid mode: ");
-        }
+    public PagedDto<PokemonResponseDto> execute(
+            final int page,
+            final int size,
+            final UriInfo uriInfo
+    ) {
+        var query = requestProcess.process(
+                pokemonRepository.streamAll(),
+                uriInfo);
+        final var offset = page * size;
 
-        var query = requestProcess.process(pokemonRepository.streamAll(), uriInfo);
-        return pokemonMapper.toValueText(query.toList(), mapTypeEnum);
+        final var result = new PagedDto<PokemonResponseDto>();
+        result.data = pokemonMapper.mapResponse(query.skip((long) page *size).limit(size).toList());
+        result.total = 0;
+        result.offset = offset;
+        result.page = page;
+        return result;
     }
 }

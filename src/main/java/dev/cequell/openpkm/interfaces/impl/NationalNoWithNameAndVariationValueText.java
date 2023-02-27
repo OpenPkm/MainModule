@@ -9,8 +9,10 @@ import java.util.UUID;
 public class NationalNoWithNameAndVariationValueText implements IPokemonMapValueText {
     @Override
     public ValueText<UUID> execute(PokemonEntity entity) {
-        return(entity.getVariation() == null)?
-            new ValueText<>(entity.getId(), "%d - %s".formatted(entity.getNationalDexNo(), entity.getName())) :
-            new ValueText<>(entity.getId(), "%d - %s (%s form)".formatted(entity.getNationalDexNo(), entity.getName(), entity.getVariation()));
+        final var label = (entity.variation == null)?
+            "%d - %s".formatted(entity.nationalDexNo, entity.name) :
+            "%d - %s (%s form)".formatted(entity.nationalDexNo, entity.name, entity.variation);
+
+        return new ValueText<>(entity.id, label);
     }
 }

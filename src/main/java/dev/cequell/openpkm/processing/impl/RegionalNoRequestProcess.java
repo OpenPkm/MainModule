@@ -11,6 +11,6 @@ public class RegionalNoRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var regionalNo = params.getFirst("regionalNo");
         if(regionalNo == null) return content;
-        return content.filter(el -> el.getRegionalDexNo() == Integer.parseInt(regionalNo));
+        return content.filter(el -> el.regionalDexNo == Integer.parseInt(regionalNo));
     }
 }

@@ -9,6 +9,6 @@ import java.util.UUID;
 public class OnlyNameValueText implements IPokemonMapValueText {
     @Override
     public ValueText<UUID> execute(PokemonEntity entity) {
-        return new ValueText<>(entity.getId(), entity.getName());
+        return new ValueText<>(entity.id, entity.name);
     }
 }

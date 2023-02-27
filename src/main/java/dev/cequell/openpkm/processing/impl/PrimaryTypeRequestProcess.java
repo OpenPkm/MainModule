@@ -11,6 +11,6 @@ public class PrimaryTypeRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var primary = params.getFirst("primary");
         if(primary == null) return content;
-        return content.filter(el -> primary.equals(el.getPrimaryType().getSlug()));
+        return content.filter(el -> primary.equals(el.primaryType.slug));
     }
 }

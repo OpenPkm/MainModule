@@ -11,6 +11,6 @@ public class NameRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var name = params.getFirst("name");
         if(name == null) return content;
-        return content.filter(el -> el.getName().toLowerCase().contains(name.toLowerCase()));
+        return content.filter(el -> el.name.toLowerCase().contains(name.toLowerCase()));
     }
 }

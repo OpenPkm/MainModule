@@ -11,6 +11,6 @@ public class NationalNoRequestProcess extends RequestBaseProcess {
     protected Stream<PokemonEntity> handle(Stream<PokemonEntity> content, MultivaluedMap<String, String> params) {
         var nationalNo = params.getFirst("nationalNo");
         if(nationalNo == null) return content;
-        return content.filter(el -> el.getNationalDexNo() == Integer.parseInt(nationalNo));
+        return content.filter(el -> el.nationalDexNo == Integer.parseInt(nationalNo));
     }
 }
