@@ -18,6 +18,7 @@
     <mapstruct.version>1.5.3.Final</mapstruct.version>
     <lombok.version>1.18.26</lombok.version>
     <testcontainer.version>1.17.6</testcontainer.version>
+    <graphql.version>2.16.3.Final</graphql.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -90,6 +91,20 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-postgresql</artifactId>
       <version>${quarkus.platform.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-smallrye-graphql -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql</artifactId>
+      <version>${graphql.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-smallrye-graphql-client -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql-client</artifactId>
+      <version>${graphql.version}</version>
     </dependency>
 
     <!-- ############################################################## -->

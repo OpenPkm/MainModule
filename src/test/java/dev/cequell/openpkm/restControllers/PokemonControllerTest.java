@@ -1,4 +1,4 @@
-package dev.cequell.openpkm.controllers;
+package dev.cequell.openpkm.restControllers;
 
 import dev.cequell.openpkm.configs.DatabaseTestConfig;
 import dev.cequell.openpkm.enums.PokemonMapTypeEnum;

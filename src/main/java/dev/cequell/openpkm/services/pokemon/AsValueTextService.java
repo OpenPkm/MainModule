@@ -1,5 +1,6 @@
 package dev.cequell.openpkm.services.pokemon;
 
+import dev.cequell.openpkm.dto.PokemonRequestParamDto;
 import dev.cequell.openpkm.dto.ValueText;
 import dev.cequell.openpkm.enums.PokemonMapTypeEnum;
 import dev.cequell.openpkm.maps.PokemonMapper;
@@ -8,7 +9,6 @@ import dev.cequell.openpkm.processing.impl.*;
 import dev.cequell.openpkm.repositories.PokemonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,13 +36,8 @@ public class AsValueTextService {
         requestProcess.add(new SortProcessing());
     }
 
-    public List<ValueText<UUID>> execute(String mode, UriInfo uriInfo) {
-        var mapTypeEnum = PokemonMapTypeEnum.of(mode);
-        if(mapTypeEnum == null) {
-            throw new RuntimeException("Select a valid mode: ");
-        }
-
-        var query = requestProcess.process(pokemonRepository.streamAll(), uriInfo);
-        return pokemonMapper.toValueText(query.toList(), mapTypeEnum);
+    public List<ValueText<UUID>> execute(PokemonMapTypeEnum mode, PokemonRequestParamDto params) {
+        var query = requestProcess.process(pokemonRepository.streamAll(), params);
+        return pokemonMapper.toValueText(query.toList(), mode);
     }
 }

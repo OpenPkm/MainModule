@@ -12,6 +12,5 @@ import java.util.List;
 public class PagedDto<T> {
     public List<T> data;
     public int offset;
-    public int total;
     public int page;
 }

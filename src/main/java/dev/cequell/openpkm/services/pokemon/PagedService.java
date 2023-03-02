@@ -1,6 +1,7 @@
 package dev.cequell.openpkm.services.pokemon;
 
 import dev.cequell.openpkm.dto.PagedDto;
+import dev.cequell.openpkm.dto.PokemonRequestParamDto;
 import dev.cequell.openpkm.dto.PokemonResponseDto;
 import dev.cequell.openpkm.maps.PokemonMapper;
 import dev.cequell.openpkm.processing.RequestBaseProcess;
@@ -8,7 +9,6 @@ import dev.cequell.openpkm.processing.impl.*;
 import dev.cequell.openpkm.repositories.PokemonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.core.UriInfo;
 
 @ApplicationScoped
 public class PagedService {
@@ -21,7 +21,7 @@ public class PagedService {
             final PokemonMapper pokemonMapper
     ) {
         this.pokemonRepository = pokemonRepository;
-        this.pokemonMapper = pokemonMapper;
+        this.pokemonMapper     = pokemonMapper;
 
         requestProcess = new NameRequestProcess();
         requestProcess.add(new SortProcessing());
@@ -37,18 +37,17 @@ public class PagedService {
     public PagedDto<PokemonResponseDto> execute(
             final int page,
             final int size,
-            final UriInfo uriInfo
+            final PokemonRequestParamDto params
     ) {
         var query = requestProcess.process(
                 pokemonRepository.streamAll(),
-                uriInfo);
+                params);
         final var offset = page * size;
 
         final var result = new PagedDto<PokemonResponseDto>();
-        result.data = pokemonMapper.mapResponse(query.skip((long) page *size).limit(size).toList());
-        result.total = 0;
-        result.offset = offset;
-        result.page = page;
+        result.data      = pokemonMapper.mapResponse(query.skip((long) page *size).limit(size).toList());
+        result.offset    = offset;
+        result.page      = page;
         return result;
     }
 }
