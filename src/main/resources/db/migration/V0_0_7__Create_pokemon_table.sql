@@ -5,6 +5,7 @@ CREATE TABLE public.pokemon (
 	national_dex_no   int4    NOT NULL,
 	regional_dex_no   int4    NOT NULL,
 	classification    varchar NOT NULL,
+	evolves_from      uuid        NULL,
 	weight            float8  NOT NULL,
 	height            float8  NOT NULL,
 	female_ratio      float8      NULL,
