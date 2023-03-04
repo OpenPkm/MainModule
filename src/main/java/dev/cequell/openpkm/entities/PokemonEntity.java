@@ -64,4 +64,12 @@ public class PokemonEntity extends PanacheEntityBase {
             updatable = false
     )
     public TypeEntity secondaryType;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "evolves_from",
+            insertable = false,
+            updatable = false
+    )
+    public PokemonEntity evolvesFrom;
 }

@@ -22,4 +22,5 @@ public class PokemonResponseDto {
     private GenResponseDto gen;
     private TypeResponseDto primaryType;
     private TypeResponseDto secondaryType;
+    private PokemonResponseDto evolvesFrom;
 }
