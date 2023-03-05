@@ -1,6 +1,6 @@
-package dev.cequell.openpkm.restControllers;
+package dev.cequell.openpkm.main_module.restControllers;
 
-import dev.cequell.openpkm.configs.DatabaseTestConfig;
+import dev.cequell.openpkm.main_module.configs.DatabaseTestConfig;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;

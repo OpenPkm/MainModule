@@ -1,4 +1,4 @@
-package dev.cequell.openpkm.configs;
+package dev.cequell.openpkm.main_module.configs;
 
 import io.quarkus.logging.Log;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
