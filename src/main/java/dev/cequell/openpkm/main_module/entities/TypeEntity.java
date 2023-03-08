@@ -1,5 +1,6 @@
 package dev.cequell.openpkm.main_module.entities;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Builder
 @Table(name = "type")
 @Entity
-public class TypeEntity {
+public class TypeEntity extends PanacheEntityBase {
     @Id
     public UUID id;
 

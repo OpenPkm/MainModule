@@ -32,7 +32,7 @@ public abstract class PokemonMapper {
         resultBuilder
                 .setPokemonUuid(entity.id.toString())
                 .setNationalDexNo(entity.nationalDexNo)
-                .setRegionalDexNo(entity.nationalDexNo)
+                .setRegionalDexNo(entity.regionalDexNo)
                 .setName(entity.name)
                 .setClassification(entity.classification)
                 .setWeight(entity.weight)
