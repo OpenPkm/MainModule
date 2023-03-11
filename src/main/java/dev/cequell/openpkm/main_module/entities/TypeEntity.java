@@ -23,10 +23,4 @@ public class TypeEntity extends PanacheEntityBase {
 
     @Column(name = "slug")
     public String slug;
-
-    @Column(name = "background_color")
-    public String backgroundColor;
-
-    @Column(name = "foreground_color")
-    public String foregroundColor;
 }
