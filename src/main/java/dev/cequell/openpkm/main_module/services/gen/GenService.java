@@ -1,4 +1,4 @@
-package dev.cequell.openpkm.main_module.services;
+package dev.cequell.openpkm.main_module.services.gen;
 
 import dev.cequell.openpkm.main_module.dto.GenResponseDto;
 import dev.cequell.openpkm.main_module.maps.GenMapper;

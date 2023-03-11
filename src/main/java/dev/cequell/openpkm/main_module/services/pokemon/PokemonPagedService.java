@@ -1,31 +1,30 @@
 package dev.cequell.openpkm.main_module.services.pokemon;
 
+import dev.cequell.openpkm.main_module.dto.PagedDto;
 import dev.cequell.openpkm.main_module.dto.PokemonRequestParamDto;
-import dev.cequell.openpkm.main_module.dto.ValueText;
-import dev.cequell.openpkm.main_module.enums.PokemonMapTypeEnum;
+import dev.cequell.openpkm.main_module.dto.PokemonResponseDto;
 import dev.cequell.openpkm.main_module.maps.PokemonMapper;
 import dev.cequell.openpkm.main_module.processing.RequestBaseProcess;
 import dev.cequell.openpkm.main_module.processing.impl.*;
 import dev.cequell.openpkm.main_module.repositories.PokemonRepository;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.util.List;
-import java.util.UUID;
 
 @ApplicationScoped
-public class AsValueTextService {
+public class PokemonPagedService {
     private final PokemonRepository pokemonRepository;
     private final PokemonMapper pokemonMapper;
     private final RequestBaseProcess requestProcess;
 
-    public AsValueTextService(
+    public PokemonPagedService(
             final PokemonRepository pokemonRepository,
             final PokemonMapper pokemonMapper
     ) {
         this.pokemonRepository = pokemonRepository;
-        this.pokemonMapper = pokemonMapper;
+        this.pokemonMapper     = pokemonMapper;
 
         requestProcess = new NameRequestProcess();
+        requestProcess.add(new SortProcessing());
         requestProcess.add(new GenerationRequestProcess());
         requestProcess.add(new ClassificationRequestProcess());
         requestProcess.add(new PrimaryTypeRequestProcess());
@@ -33,11 +32,22 @@ public class AsValueTextService {
         requestProcess.add(new NationalNoRequestProcess());
         requestProcess.add(new RegionalNoRequestProcess());
         requestProcess.add(new SomeTypeRequestProcess());
-        requestProcess.add(new SortProcessing());
     }
 
-    public List<ValueText<UUID>> execute(PokemonMapTypeEnum mode, PokemonRequestParamDto params) {
-        var query = requestProcess.process(pokemonRepository.streamAll(), params);
-        return pokemonMapper.toValueText(query.toList(), mode);
+    public PagedDto<PokemonResponseDto> execute(
+            final int page,
+            final int size,
+            final PokemonRequestParamDto params
+    ) {
+        var query = requestProcess.process(
+                pokemonRepository.streamAll(),
+                params);
+        final var offset = page * size;
+
+        final var result = new PagedDto<PokemonResponseDto>();
+        result.data      = pokemonMapper.mapResponse(query.skip((long) page *size).limit(size).toList());
+        result.offset    = offset;
+        result.page      = page;
+        return result;
     }
 }

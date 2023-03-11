@@ -14,6 +14,6 @@ public class PrimaryTypeRequestProcess extends RequestBaseProcess {
     ) {
         final var primary = params.primaryType;
         if(primary == null) return content;
-        return content.filter(el -> primary.getValue() == el.primaryType.id);
+        return content.filter(el -> primary.getValue().equals(el.primaryType.id));
     }
 }

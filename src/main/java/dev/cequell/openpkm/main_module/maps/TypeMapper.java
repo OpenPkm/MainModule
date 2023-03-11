@@ -4,18 +4,11 @@ import dev.cequell.openpkm.main_module.dto.TypeResponseDto;
 import dev.cequell.openpkm.main_module.entities.TypeEntity;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "cdi")
-public abstract class TypeMapper {
-    public abstract TypeResponseDto map(TypeEntity entity);
+public interface TypeMapper {
+    TypeResponseDto map(TypeEntity entity);
 
-    public dev.cequell.openpkm.main_module.proto.pokemon.TypeResponseDTO mapToProtoResponse(TypeEntity entity) {
-        var typeBuilder = dev.cequell.openpkm.main_module.proto.pokemon.TypeResponseDTO.newBuilder();
-
-        typeBuilder
-                .setTypeUuid(entity.id.toString())
-                .setName(entity.name)
-                .setSlug(entity.slug);
-
-        return typeBuilder.build();
-    }
+    List<TypeResponseDto> map(List<TypeEntity> entityList);
 }

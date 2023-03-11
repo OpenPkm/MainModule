@@ -14,6 +14,6 @@ public class GenerationRequestProcess extends RequestBaseProcess {
     ) {
         final var generation = params.generationNo;
         if(generation == null) return content;
-        return content.filter(el -> el.gen.id == generation.getValue());
+        return content.filter(el -> el.gen.id.equals(generation.getValue()));
     }
 }

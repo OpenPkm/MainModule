@@ -14,6 +14,6 @@ public class SecondaryTypeRequestProcess extends RequestBaseProcess {
     ) {
         final var secondary = params.secondaryType;
         if(secondary == null) return content;
-        return content.filter(el -> el.secondaryType != null && secondary.getValue() == el.secondaryType.id);
+        return content.filter(el -> el.secondaryType != null && secondary.getValue().equals(el.secondaryType.id));
     }
 }

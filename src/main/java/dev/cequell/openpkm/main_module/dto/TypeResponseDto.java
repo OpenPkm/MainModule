@@ -13,6 +13,4 @@ public class TypeResponseDto {
     private UUID id;
     private String name;
     private String slug;
-    private String backgroundColor;
-    private String foregroundColor;
 }
