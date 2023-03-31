@@ -1,6 +1,5 @@
 package dev.cequell.openpkm.main_module.configs;
 
-import io.quarkus.logging.Log;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -18,8 +17,6 @@ public class DatabaseTestConfig implements QuarkusTestResourceLifecycleManager {
                 .withUsername("PokeAdmin")
                 .withPassword("toxtricity1996");
         postgreSQLContainer.start();
-
-        Log.info(postgreSQLContainer.getEnvMap());
 
         var result = new Hashtable<String, String>();
         result.put("DATABASE_PORT", String.valueOf(postgreSQLContainer.getMappedPort(5432)));

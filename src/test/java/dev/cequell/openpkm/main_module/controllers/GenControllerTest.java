@@ -4,6 +4,7 @@ import dev.cequell.openpkm.main_module.configs.DatabaseTestConfig;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -29,7 +30,7 @@ class GenControllerTest {
                         """)
                 .post("/ql")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body(
                         "errors", nullValue(),
                         "data.getAllGenerations.size()", is(generationCount),

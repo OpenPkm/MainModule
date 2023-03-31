@@ -32,6 +32,7 @@ public class PokemonPagedService {
         requestProcess.add(new NationalNoRequestProcess());
         requestProcess.add(new RegionalNoRequestProcess());
         requestProcess.add(new SomeTypeRequestProcess());
+        requestProcess.add(new VariationRequestProcess());
     }
 
     public PagedDto<PokemonResponseDto> execute(

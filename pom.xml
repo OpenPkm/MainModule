@@ -134,6 +134,14 @@
       <version>${testcontainer.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+    <dependency>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+      <version>0.8.8</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -206,6 +214,33 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <excludes>
+            <exclude>dev/cequell/openpkm/main_module/proto/**</exclude>
+            <exclude>dev/cequell/openpkm/main_module/dto/**</exclude>
+            <exclude>dev/cequell/openpkm/main_module/configs/**</exclude>
+            <exclude>dev/cequell/openpkm/main_module/entities/**</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>

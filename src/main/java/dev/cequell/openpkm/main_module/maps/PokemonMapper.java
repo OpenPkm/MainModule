@@ -4,6 +4,8 @@ import dev.cequell.openpkm.main_module.dto.PokemonResponseDto;
 import dev.cequell.openpkm.main_module.dto.ValueText;
 import dev.cequell.openpkm.main_module.entities.PokemonEntity;
 import dev.cequell.openpkm.main_module.enums.PokemonMapTypeEnum;
+import dev.cequell.openpkm.main_module.proto.pokemon.PokemonProtoDto;
+import dev.cequell.openpkm.main_module.proto.pokemon.TypeResponseProtoDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -24,12 +26,12 @@ public abstract class PokemonMapper {
     }
     public abstract PokemonResponseDto mapResponse(PokemonEntity entity);
 
-    public dev.cequell.openpkm.main_module.proto.pokemon.PokemonResponseDto mapAsProtoResponse(PokemonEntity entity) {
-        final var resultBuilder = dev.cequell.openpkm.main_module.proto.pokemon.PokemonResponseDto.newBuilder();
+    public PokemonProtoDto mapAsProtoResponse(PokemonEntity entity) {
+        final var pokemonBuilder = PokemonProtoDto.newBuilder();
 
         final var variation = (entity.variation==null)? "" : entity.variation;
 
-        resultBuilder
+        pokemonBuilder
                 .setPokemonUuid(entity.id.toString())
                 .setNationalDexNo(entity.nationalDexNo)
                 .setRegionalDexNo(entity.regionalDexNo)
@@ -41,24 +43,25 @@ public abstract class PokemonMapper {
                 .setVariation(variation)
                 .setGen(entity.gen.no)
                 .setPrimaryType(
-                        dev.cequell.openpkm.main_module.proto.pokemon.TypeResponseDTO.newBuilder()
+                        TypeResponseProtoDTO.newBuilder()
                                 .setTypeUuid(entity.primaryType.id.toString())
                                 .setName(entity.primaryType.name)
                                 .setSlug(entity.primaryType.slug)
                 );
 
         if(entity.secondaryType != null) {
-            resultBuilder
+            pokemonBuilder
                     .setSecondaryType(
-                            dev.cequell.openpkm.main_module.proto.pokemon.TypeResponseDTO.newBuilder()
+                            TypeResponseProtoDTO.newBuilder()
                                     .setTypeUuid(entity.secondaryType.id.toString())
                                     .setName(entity.secondaryType.name)
                                     .setSlug(entity.secondaryType.slug)
                     );
         }
 
-        return resultBuilder.build();
+        return pokemonBuilder.build();
     }
+    public abstract List<PokemonProtoDto> mapAsProtoResponse(List<PokemonEntity> entity);
 
     public List<ValueText<UUID>> toValueText(
             List<PokemonEntity> entityList,
