@@ -7,8 +7,8 @@ import dev.cequell.openpkm.main_module.maps.PokemonMapper;
 import dev.cequell.openpkm.main_module.processing.RequestBaseProcess;
 import dev.cequell.openpkm.main_module.processing.impl.*;
 import dev.cequell.openpkm.main_module.repositories.PokemonRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.UUID;
 

@@ -4,9 +4,9 @@ import dev.cequell.openpkm.main_module.dto.PokemonResponseDto;
 import dev.cequell.openpkm.main_module.exceptions.InvalidIdException;
 import dev.cequell.openpkm.main_module.maps.PokemonMapper;
 import dev.cequell.openpkm.main_module.repositories.PokemonRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 @RequiredArgsConstructor

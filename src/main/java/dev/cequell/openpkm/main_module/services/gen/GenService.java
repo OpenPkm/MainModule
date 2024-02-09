@@ -3,9 +3,9 @@ package dev.cequell.openpkm.main_module.services.gen;
 import dev.cequell.openpkm.main_module.dto.GenResponseDto;
 import dev.cequell.openpkm.main_module.maps.GenMapper;
 import dev.cequell.openpkm.main_module.repositories.GenRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @RequiredArgsConstructor

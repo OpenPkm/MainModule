@@ -3,9 +3,9 @@ package dev.cequell.openpkm.main_module.services.type;
 import dev.cequell.openpkm.main_module.dto.TypeResponseDto;
 import dev.cequell.openpkm.main_module.maps.TypeMapper;
 import dev.cequell.openpkm.main_module.repositories.TypeRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import lombok.RequiredArgsConstructor;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @RequiredArgsConstructor

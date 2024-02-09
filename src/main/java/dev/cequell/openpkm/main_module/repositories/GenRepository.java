@@ -2,8 +2,8 @@ package dev.cequell.openpkm.main_module.repositories;
 
 import dev.cequell.openpkm.main_module.entities.GenEntity;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped

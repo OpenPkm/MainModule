@@ -7,8 +7,7 @@ import dev.cequell.openpkm.main_module.maps.PokemonMapper;
 import dev.cequell.openpkm.main_module.processing.RequestBaseProcess;
 import dev.cequell.openpkm.main_module.processing.impl.*;
 import dev.cequell.openpkm.main_module.repositories.PokemonRepository;
-
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class PokemonPagedService {
