@@ -7,6 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Main Module</name>
   <description>Open Pokémon - Main Module</description>
+
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
     <maven.compiler.release>17</maven.compiler.release>
@@ -20,6 +21,7 @@
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok.version>1.18.28</lombok.version>
     <testcontainer.version>1.18.3</testcontainer.version>
+    <grpc-testing.version>1.55.1</grpc-testing.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -73,14 +75,14 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-graphql-client</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-container-image-jib</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-kubernetes</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>io.quarkus</groupId>-->
+<!--      <artifactId>quarkus-container-image-jib</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>io.quarkus</groupId>-->
+<!--      <artifactId>quarkus-kubernetes</artifactId>-->
+<!--    </dependency>-->
 
     <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
     <dependency>
@@ -119,6 +121,20 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.grpc/grpc-testing -->
+    <dependency>
+      <groupId>io.grpc</groupId>
+      <artifactId>grpc-testing</artifactId>
+      <version>${grpc-testing.version}</version>
+      <scope>test</scope>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.testcontainers/testcontainers -->
     <dependency>
       <groupId>org.testcontainers</groupId>
@@ -133,13 +149,6 @@
       <artifactId>postgresql</artifactId>
       <version>${testcontainer.version}</version>
       <scope>test</scope>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.8</version>
     </dependency>
 
   </dependencies>
@@ -214,33 +223,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>prepare-agent</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>report</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <excludes>
-            <exclude>dev/cequell/openpkm/main_module/proto/**</exclude>
-            <exclude>dev/cequell/openpkm/main_module/dto/**</exclude>
-            <exclude>dev/cequell/openpkm/main_module/configs/**</exclude>
-            <exclude>dev/cequell/openpkm/main_module/entities/**</exclude>
-          </excludes>
-        </configuration>
       </plugin>
     </plugins>
   </build>
