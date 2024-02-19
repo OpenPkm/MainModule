@@ -1,0 +1,1 @@
+ALTER TABLE public.pokemon DROP COLUMN regional_dex_no;
